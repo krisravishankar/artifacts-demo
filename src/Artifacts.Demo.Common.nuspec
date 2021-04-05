@@ -15,6 +15,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="**\*.dll" target="lib\netcoreapp3.1\*.dll" />
+    <file src="**\Artifacts.Demo.Common.Models.dll" target="lib\netcoreapp3.1\Artifacts.Demo.Common.Models.dll" />  
+    <file src="**\Artifacts.Demo.Common.Utilities.dll" target="lib\netcoreapp3.1\Artifacts.Demo.Common.Utilities.dll" />
   </files>
 </package>
