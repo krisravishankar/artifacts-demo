@@ -1,0 +1,38 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+  # my working directory is src
+  workingDirectory: src
+
+- task: NuGetCommand@2
+  displayName: 'NuGet pack'
+  inputs:
+    command: pack
+    # this is the name of the .nuspec file
+    packagesToPack: '**/Artifacts.Demo.Common.nuspec'
+    versioningScheme: byBuildNumber
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: NuGetAuthenticate@0
+  displayName: 'NuGet authenticate'
+- task: NuGetCommand@2
+  displayName: 'NuGet push'
+  inputs:
+    command: push
+    # this is the location of the feed i.e. projectname/feedname
+    publishVstsFeed: 'tutorials/my-artifacts'
+    allowPackageConflicts: false
