@@ -24,7 +24,6 @@ steps:
     command: pack
     # this is the name of the .nuspec file
     packagesToPack: '**/Artifacts.Demo.Common.nuspec'
-    versioningScheme: byBuildNumber
     arguments: '--configuration $(buildConfiguration)'
 
 - task: NuGetAuthenticate@0
